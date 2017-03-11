@@ -1,8 +1,8 @@
 ---
-title: "Untitled"
+title: "Shiny Application and Reproducible Pitch"
 author: "Wei Lin"
-date: "25 February 2017"
-output: ioslides_presentation
+date: "8 March 2017"
+output: slidy_presentation
 ---
 
 ```{r setup, include=FALSE}
@@ -21,9 +21,9 @@ When you click the **Knit** button a document will be generated that includes bo
 - Bullet 2
 - Bullet 3
 
-## Slide with R Output
+## On R 
 
-```{r cars, echo = TRUE}
+```{r cars, echo = FALSE}
 summary(cars)
 ```
 
