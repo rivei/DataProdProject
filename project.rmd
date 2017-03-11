@@ -1,5 +1,5 @@
 ---
-title: "Shiny Application and Reproducible Pitch"
+title: "Chick Weight Dataset at a Glance"
 author: "Wei Lin"
 date: "8 March 2017"
 output: slidy_presentation
@@ -7,29 +7,61 @@ output: slidy_presentation
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+library(plotly)
+library(dplyr)
 ```
 
-## R Markdown
+## Introduction
+- The ChickenWeight dataset is one of the easiest accessible dataset in R datasets library. Personally speaking, it is a data set that can be easily analysis and be plot in a colorful way.
+- In the dataset, the body weights of the chicks were measured at birth and every second day thereafter until day 20. They were also measured on day 21. There were four groups on chicks on different protein diets.
 
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
-
-## Slide with Bullets
-
-- Bullet 1
-- Bullet 2
-- Bullet 3
-
-## On R 
-
-```{r cars, echo = FALSE}
-summary(cars)
+## Weight versus age of chicks on different diets
+The plot below shows clearly how the chicks which belong to different diet group grow across time.
+```{r}
+      ChickWeight$Diet <- factor(ChickWeight$Diet)
+        ggplot(ChickWeight, aes(x = Time, y = weight, colour = Diet)) + 
+          geom_point(alpha = 0.3) + 
+          stat_summary(fun.y = 'mean',geom = 'line', 
+                       aes(group = Diet, colour = Diet))
 ```
 
-## Slide with Plot
-
-```{r pressure}
-plot(pressure)
+## Statistic summary
+- Mean
+```{r}
+    ckw <- group_by(ChickWeight,Diet = factor(Diet))
+    ckwT <- summarise(subset(ckw, Time == 0), mean(weight))[,1]
+    for(i in unique(ckw$Time)){
+      ckwT <- cbind(ckwT, round(summarise(subset(ckw, Time == i), mean(weight))[,2],1))
+    }
+    names(ckwT)<-c("Diet","T0","T2","T4","T6","T8","T10","T12","T14","T16","T18","T20","T21")
+    ckwT
 ```
+
+- Standard Error
+```{r}
+    ckw <- group_by(ChickWeight,Diet = factor(Diet))
+    ckwT <- summarise(subset(ckw, Time == 0), sd(weight))[,1]
+    for(i in unique(ckw$Time)){
+      ckwT <- cbind(ckwT, round(summarise(subset(ckw, Time == i), mean(weight))[,2],1))
+    }
+    names(ckwT)<-c("Diet","T0","T2","T4","T6","T8","T10","T12","T14","T16","T18","T20","T21")
+    ckwT
+```
+
+- Median
+```{r}
+    ckw <- group_by(ChickWeight,Diet = factor(Diet))
+    ckwT <- summarise(subset(ckw, Time == 0), median(weight))[,1]
+    for(i in unique(ckw$Time)){
+      ckwT <- cbind(ckwT,round(summarise(subset(ckw, Time ==i), mean(weight))[,2],1))
+    }
+    names(ckwT)<-c("Diet","T0","T2","T4","T6","T8","T10","T12","T14","T16","T18","T20","T21")
+    ckwT
+```
+
+## Further Information
+- To interact with the plot in previous slide, visit [my Shiny app page](https://rivei.shinyapps.io/dpProj/)
+- To see the code of this presentation, visit [my Github page](https://github.com/rivei/DataProdProject/tree/master)
+
+Thank you!
 

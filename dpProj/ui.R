@@ -14,6 +14,17 @@ shinyUI(fluidPage(
   
   # Application title
   titlePanel("Chick Weight Dataset at a Glance"),
+
+  fluidRow(column(10,
+    h3("Introduction"),
+    h4("- The ChickenWeight dataset is one of the easiest accessible dataset in R datasets
+       library. Personally speaking, it is a data set that can be easily analysis and be 
+       plot in a colorful way."),
+    h4("- In the dataset, the body weights of the chicks were measured at birth and every
+      second day thereafter until day 20. They were also measured on day 21. There were 
+      four groups on chicks on different protein diets."))
+  ),
+  br(),
   
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
@@ -51,6 +62,7 @@ shinyUI(fluidPage(
            h5("Hint: Please click Summit to apply your choice.", style = "color:red")
     ),
     column(4,
+           h3("Statistic summary"),
            tabsetPanel(type = "tabs",
                        tabPanel("Group by Diet", br(), tableOutput("subTable")),
                        tabPanel("Overall", br(), tableOutput("allTable")))
