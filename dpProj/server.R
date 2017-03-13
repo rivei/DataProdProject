@@ -10,6 +10,7 @@
 library(shiny)
 library(ggplot2)
 library(dplyr)
+data("ChickWeight")
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {

@@ -31,16 +31,19 @@ shinyUI(fluidPage(
     sidebarPanel(
       textInput("box1", "Enter Plot title:", value = 
                   "Weight versus age of chicks on different diets"),
+      br(),
       sliderInput("slTime", "Pick Start and End Time:",
                   0, 22, value = c(0, 22), step = 2), 
+      br(),
       checkboxGroupInput("gDiet", 
-                         label = h4("Diet group to Show"), 
+                         label = "Diet group to Show", 
                          choices = list("Diet 1" = 1, 
                                         "Diet 2" = 2,
                                         "Diet 3" = 3,
                                         "Diet 4" = 4),
                          selected = c(1,2,3,4)),
-      radioButtons("radio", label = h3("Draw lines on:"),
+      br(),
+      radioButtons("radio", label = "Draw lines on:",
                  choices = list("Mean of Diet" = 1, "Mean of Chick" = 2)
                  ,selected = 1) 
     ),
